@@ -1,0 +1,116 @@
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/val.css" type="text/css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jquery.validate.js"></script>
+<script type="text/javascript" src="../js/jquery.pstrength-min.1.2.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<script  src="../js/index.js"></script>
+<script  src="../js/register.js"></script>
+
+<style>
+
+input:required:focus 
+{
+  border: 2px solid red;
+  outline: none;
+  text:none;
+}
+input:required:hover 
+{
+  opacity:10;
+}
+.error
+{
+  color: red;
+}
+</style>
+  	<div class="panel-heading">
+        	<h3 class="panel-title">Registration Form</h3>
+	  </div>
+<form id ="validateForm" class="form-horizontal" method="POST" Action ="catcha.php">
+	<fieldset>
+
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="Email">Email </label>
+        <div class="col-md-4">
+          <input id="email" name="Email" type="text" placeholder="" class="form-control input-md"required>
+					<span id="popover-email" class="hide pull-center block-help"><i class="fa fa-info-circle text-danger" aria-hidden="true"></i> Enter an valid email address</span>
+				</div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="passwordinput">Sandi <span id="popover-password-top" class="hide pull-right block-help"><i class="fa fa-info-circle text-danger" aria-hidden="true"></i></span></label>
+        <div class="col-md-4">
+          <input id="password" name="password" type="password" placeholder="" class="form-control input-md" data-placement="bottom" data-toggle="popover" data-container="body" type="button" data-html="true" required>
+            <div id="popover-password">
+              <p>Password Strength: <span id="result"> </span></p>
+                <div class="progress">
+                  <div id="password-strength" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:0%" required>
+                  </div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="passwordinput">Konfirmasi Sandi </label>
+            <div class="col-md-4">
+              <input id="confirm-password" name="confirm-password" type="password" placeholder="" class="form-control input-md"required>
+							<span id="popover-cpassword" class="hide pull-center block-help"><i class="fa fa-info-circle text-danger" aria-hidden="true"></i> Password don't match</span>
+					  </div>
+      </div>
+
+		<div class="form-group">
+  		<label class="col-md-4 control-label" for="Nama">Nama</label>  
+  			<div class="col-md-4">
+  				<input id="Nama" name="Nama" type="text" placeholder="Nama" class="form-control input-md" required> 
+  			</div>
+		</div>
+
+    <div class="form-group">
+			<label class="col-md-4 control-label"></label>
+				<div class="col-md-6">
+				<div class="g-recaptcha" name = "capcay" id="capcay"data-sitekey="6LeY8HEUAAAAAKuD6Vn305Ea2wx2jM5SBMv06voq"></div>
+		</div>
+
+		<div class="form-group">
+  		<div class="col-md-4"style="float: right;">
+       <button id="send" name="send" class="btn btn-success" >Send</button>
+       <button type="button" class="btn btn-primary" onclick="javascript:history.back()"><span ></span> Back</button>
+      </div>
+    </div>
+
+		</fieldset>
+</form>
+
+<script type="text/javascript">
+  jQuery(document).ready(function($) {
+    $('#validateForm').submit(function(){
+      $.ajax({
+        url: 'catcha.php',
+        type: 'POST',
+        data: $(this).serialize(),
+        success: function(data){
+          alert(data);
+
+          $('[name=password]').val("");
+          $('[name=confirm-password]').val("");
+					$('[name=Nama]').val("");
+					$('[name=capcay]').val("");
+          $('.kontent').append('Berhasil Meload');
+          window.location.replace('../index/');
+        },
+        error: function() {
+          alert("Tidak dapat memproses data !");
+        }
+      });
+      return false;
+  	});
+  });
+</script>
+

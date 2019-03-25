@@ -1,0 +1,106 @@
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+</head>
+<body>
+
+<?php
+error_reporting(0);
+$username = $_POST['email'];
+$password = md5($_POST['pass']);
+
+ 
+ $ch = curl_init('http://localhost/sid/services/view/Accounts.php');
+ $jsonData = array( 'USERNAME' => $username, 'PASSWORD' => $password );
+ $jsonDataEncoded = json_encode($jsonData);
+ curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
+
+ curl_setopt($ch, CURLOPT_POST, true);
+ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+ curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+ curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+ curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+ 
+ $result = curl_exec($ch);
+ curl_close($ch);
+
+ $sess_arr = json_decode($result, true);
+
+ if(isset($sess_arr['errorMessages'][0])) 
+ { 
+ echo $sess_arr['errorMessages'][0];
+ } 
+ else 
+ {
+		foreach ($sess_arr as $sess) 
+		{
+        if( ($sess['USERNAME']==$username) && ($sess['PASSWORD']==$password) )
+        {
+        	session_start();
+        	$_SESSION['USERNAME']  = $sess['USERNAME'];
+        	$_SESSION['ROLE_ID']  = $sess['ROLE_ID'];
+        	if ($_SESSION['ROLE_ID'] == "1") 
+        	{
+						$message="<script type='text/javascript'>
+						toastr.success('LOGIN SUCESFULLY', {positionClass: 'toast-top-center', timeOut: '4200'})
+						</script>";
+						echo $message;
+            echo "<script language=\"JavaScript\">document.location='../admin/index.php'</script>";
+					}
+					else if ($_SESSION['ROLE_ID'] =="2") 
+					{
+						$message="<script type='text/javascript'>
+						toastr.success('LOGIN SUCESFULLY', {positionClass: 'toast-top-center', timeOut: '4200'})
+						</script>";
+						echo $message;
+						echo "<script language=\"JavaScript\">document.location='../user/index.php'</script>";
+					}
+					else 	
+					{
+						$message="<script type='text/javascript'>
+						toastr.warning('GAGAL LOGIN',  {positionClass: 'toast-bottom-right', toastClass: 'animated fadeInDown', timeOut: '2100'})
+						</script>";		
+						echo $message;			
+						echo "<script language=\"JavaScript\">document.location='index.html'</script>"; 
+						
+					}   
+
+				}
+				else 
+				{
+					$message="<script type='text/javascript'>
+					toastr.warning('GAGAL LOGIN',  {positionClass: 'toast-bottom-right', toastClass: 'animated fadeInDown', timeOut: '2100'})
+					</script>";		
+					echo $message;	
+					echo "<script language=\"JavaScript\">document.location='index.html'</script>"; 
+					
+				}
+  	}
+  }
+ ?>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,50 @@
+<?php
+// untuk melakukan koneksi ke database
+include '../koneksi.php';
+	
+$username = $_POST['email'];
+$password = $_POST['pass'];
+    
+// untuk mengecek inputan
+$params = array();
+$options =  array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
+$sql    = "SELECT * from dbo.ACCOUNTS where USERNAME = '$username' and PASSWORD = '$password' ";
+$login  = sqlsrv_query( $conn, $sql, $params, $options);  
+
+$hasil  = sqlsrv_num_rows($login);
+$r      = sqlsrv_fetch_array($login);
+    
+// untuk mengecek season yang digunakan
+if ($hasil > 0)
+	{ 
+	session_start();	 	
+	
+	// mencetak history loggin
+	
+    $_SESSION['USERNAME']  = $r['USERNAME'];
+    $_SESSION['ROLE_ID']  = $r['ROLE_ID'];
+		
+	header('location:cek.php');
+    }
+else{ 
+    echo $hasil;
+	echo "<script language=\"JavaScript\">document.location='index.html'</script>"; 
+	}
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

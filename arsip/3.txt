@@ -1,0 +1,55 @@
+<?php
+
+$username = $_POST['email'];
+$password = $_POST['pass'];
+
+ 
+ $ch = curl_init('http://localhost/sid/services/view/Accounts.php');
+ $jsonData = array( 'USERNAME' => $username, 'PASSWORD' => $password );
+ $jsonDataEncoded = json_encode($jsonData);
+ curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
+
+ curl_setopt($ch, CURLOPT_POST, true);
+ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+ curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+ curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+ curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+ 
+ $result = curl_exec($ch);
+ curl_close($ch);
+
+ $sess_arr = json_decode($result, true);
+
+ /*echo '<pre>';
+ var_dump($ch);
+ var_dump($sess_arr);
+ echo'</pre>'; */
+
+
+ if(isset($sess_arr['errorMessages'][0])) 
+ { 
+ echo $sess_arr['errorMessages'][0];
+ } 
+ else 
+ {
+ setcookie($sess_arr['USERNAME']['USERNAME'], $sess_arr['ROLE_ID']['ROLE_ID'], time() + (86400 * 30), "/");
+ echo "Login Success!";
+ }?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

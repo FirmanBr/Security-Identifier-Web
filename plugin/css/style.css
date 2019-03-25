@@ -1,0 +1,110 @@
+root { 
+    display: block;
+}
+h1 {
+    color: #064A7A;
+    font-size: 34px;
+    font-weight: bold;
+    margin:28px 0 8px;
+    padding: 0;
+}
+
+input[type=text] {
+    width: 450px;
+    height:30px;
+    display: block;
+    margin-bottom: 5px;
+    border-radius:10px 10px 10px 10px;
+}
+
+#wrapper{
+    width:1000px;
+    height:680px;
+    border:1px solid #cdcdcd; 
+    background:#f0f3f6;
+    margin:auto;
+}
+#header{
+    width:960px;
+    height:150px;
+    border:1px solid #cdcdcd;
+    background:#639fce;
+    margin:auto;
+    margin-top:5px;
+}
+
+#wrapper_konten{
+    width:960px;
+    height:500px;
+    border:1px solid #cdcdcd;
+    background:#639fce;
+    margin:auto;
+    margin-top:5px;
+}
+#left_konten{
+    width:240px;
+    height:485px;
+    border:1px solid #cdcdcd;
+    background:#e6e2e2;
+    float:left;
+    margin-left:5px;
+    margin-top:5px;
+}
+#right_konten{
+    width:700px;
+    height:485px;
+    border:1px solid #cdcdcd;
+    background:#e6e2e2;
+    float:left;
+    margin-left:5px;
+    margin-top:5px;
+    margin-right:5px; 
+}
+
+#form_top_artikel
+{
+  background:#FA8072;
+  width:85%;
+  height:40px;
+  margin-top:50px;
+  margin-left:50px;
+  margin-right:50px;
+  border-top-left-radius:10px;
+  border-top-right-radius:10px;
+}
+
+#form_content_artikel
+{
+  background:#fff;
+  width:85%;
+  height:340px;
+  margin-left:50px;
+  margin-right:50px;
+  
+}
+
+#form_bottom_artikel
+{
+  background:#DEB887;
+  width:85%;
+  height:40px;
+  margin-left:50px;
+  margin-right:50px;
+  border-bottom-left-radius:10px;
+  border-bottom-right-radius:10px;
+}
+
+#isi_artikel{
+padding-left:25px;
+padding-top:25px;
+
+}
+
+.produksi{
+     text-align: center;
+}
+
+#judul{
+ padding:10px;
+
+}
